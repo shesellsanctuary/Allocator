@@ -1,57 +1,83 @@
 /**
  * 
  */
-package allocator.domain;
 
+package allocator.domain;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author felipebertoldo
- *
+ * @author felipebertoldo, emilycalvet, marcellotomazi
+ * @version %I%, %G%
  */
+
 public class Group {
-	private int numberOfStudents;
-	private List<Professor> teacher;
+	
 	private String id;
 	private Course course;
+	private int numberOfStudents;
 	private List<Session> session;
+	private List<Professor> teachers;
 	
 	/**
-	 * 
+	 * Class constructor specifying the data of a single group.
+	 * @param numberOfStudents the number of students in this course
+	 * @param teachers		   a list of professors who teach this course.
+	 * @param id			   the group id
+	 * @param course      	   the course to which this group belongs.
 	 */
-	public Group(int numberOfStudents, Professor teacher, String id, Course course) {
-		// TODO Auto-generated constructor stub
-		this.numberOfStudents = numberOfStudents;
-		//add PROFESSOR on the list
+	public Group(int numberOfStudents, List<Professor> teachers, String id, Course course) {
+
 		this.id = id;
 		this.course = course;
-		
+		this.teachers = teachers;
+		this.session = new ArrayList<Session>();
+		this.numberOfStudents = numberOfStudents;
 	}
 	
-	public int getNumberOfStudents()
-	{
+	/**
+	 * Gets the number of students in this course.
+	 * @return the number of students in this course.
+	 */
+	public int getNumberOfStudents() {
+		
 		return this.numberOfStudents;
 	}
-	/* 
-	public Professor getTeacher()
-	{
-		// What to return?
+	
+	/**
+	 * Gets the list of professors who teach this course.
+	 * @return  the list of professors who teach this course.
+	 */
+	public List<Professor> getTeacher() {
 		
+		return this.teachers;	
 	}
-	*/
-	public Course getCourse()
-	{
+
+	/**
+	 * Gets the course to which this group belongs.
+	 * @return  the course to which this group belongs.
+	 */
+	public Course getCourse() {
+		
 		return this.course;
 	}
 	
-	public String getId()
-	{
+	/**
+	 * Gets the group ID.
+	 * @return  the string containing the group ID.
+	 */
+	public String getId() {
+		
 		return this.id;
 	}
 	
-	public void addSession(Session session)
-	{
-		// APPEND session
+	/**
+	 * Appends a new session to the session list of a course.
+	 * @param newSession the session that will be appended.
+	 */
+	public void addSession(Session newSession) {
+		
+		session.add(newSession);
 	}
 
 }

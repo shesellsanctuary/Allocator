@@ -7,31 +7,41 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @author felipebertoldo
- *
+ * @author felipebertoldo, emilycalvet, marcellotomazi
+ * @version %I%, %G%
  */
+
 public class Room {
 
 	private String id;
-	private List<Integer> features;
-	private int numOfPlaces;
-	private boolean avaliableForAllocation;
-	private Building building;
 	private String note;
+	private int numOfPlaces;
+	private Building building;
+	private List<Integer> features;
+	private boolean avaliableForAllocation;
 	private HashMap<String,Boolean> roomMap;
 	
 	/**
-	 * 
+	 * Class constructor specifying the room data.
+	 * @param id  						string containing the course ID.
+	 * @param features					list containing the features available in this room.
+	 * @param numOfPlaces   			the number of places available in this room.
+	 * @param avaliableForAllocation	value that indicates whether the room is available to be allocated or not
+	 * @param building					the building to which the room belongs.
+	 * @param note						string containing the description of the room.
 	 */
-	public Room(String id, List<Integer> features, int numOfPlaces, boolean avaliableForAllocation, Building building, String note) {
+	public Room(String id, List<Integer> features, int numOfPlaces, boolean avaliableForAllocation, Building building, String note)
+	{
 		this.id = id;
+		this.note = note;
 		this.features = features;
+		this.building = building;
 		this.numOfPlaces = numOfPlaces;
 		this.avaliableForAllocation = avaliableForAllocation;
-		this.building = building;
-		this.note = note;
+		this.roomMap = new HashMap<String,Boolean>();
 	}
 	
+
 	public String getID()
 	{
 		return this.id;
@@ -64,8 +74,7 @@ public class Room {
 	
 	public void alloc(String startTime)
 	{
-		System.out.println( "teste");
-		// implementar
+		//TODO implementation
 	}
 	
 	public HashMap<String, Boolean> getRoomMap()
@@ -73,9 +82,9 @@ public class Room {
 		return this.roomMap;
 	}
 
-	public void setNote(String note)
+	public String getNote()
 	{
-		return;
+		return note;
 	}
 	
 }

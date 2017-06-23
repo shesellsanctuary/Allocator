@@ -8,24 +8,26 @@ import java.io.File;
 import allocator.INFOperationService;
 
 /**
- * @author felipebertoldo
- *
+ * @author felipebertoldo, emilycalvet, marcellotomazi
+ * @version %I%, %G%
  */
+
 public class INFOperationServiceImpl implements INFOperationService {
 
 	/**
-	 * 
+	 * Class constructor.
 	 */
 	public INFOperationServiceImpl() {
-		// TODO Auto-generated constructor stub
+
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see allocator.INFOperationService#readXML(java.io.File)
 	 */
 	@Override
 	public void readXML(File inputFile) {
-		// TODO Auto-generated method stub
+		// TODO 
 
 	}
 
@@ -34,7 +36,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 */
 	@Override
 	public void roomAlloc() {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 
@@ -43,7 +45,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 */
 	@Override
 	public File exportXML() {
-		// TODO Auto-generated method stub
+		// TODO 
 		return null;
 	}
 

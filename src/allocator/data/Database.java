@@ -2,15 +2,15 @@
  * 
  */
 package allocator.data;
-
 import java.util.List;
 
 import allocator.domain.*;
 
 /**
- * @author emilycalvet, felipebertoldo, marcellotomazi
- *
+ * @author felipebertoldo, emilycalvet, marcellotomazi
+ * @version %I%, %G%
  */
+
 public class Database {
 
 	private List<Room>      roomList;
@@ -20,52 +20,95 @@ public class Database {
 	private List<Building>  buildingsList;
 	private List<Professor> professorsList;
 
-	public Database() {}
+	/**
+	 * Class constructor
+	 */
+	public Database() {
+		
+	}
 
-	public List<Professor> getProfessorList()
-	{
+	/**
+	 * Gets the list of professors stored in the database.
+	 * @return  a list containing the professors.
+	 */
+	public List<Professor> getProfessorList() {
+		
 		return this.professorsList;
 	}
 	
-	public List<Building> getBuildingList()
-	{
+	/**
+	 * Gets the list of buildings stored in the database.
+	 * @return  a list containing all the buildings.
+	 */
+	public List<Building> getBuildingList() {
+		
 		return this.buildingsList;
 	}
 	
-	public List<Room> getRoomList()
-	{
+	/**
+	 * Gets the list of rooms stored in the database.
+	 * @return  a list containing all the rooms.
+	 */
+	public List<Room> getRoomList() {
+		
 		return this.roomList;
 	}
 	
-	public List<Session> getSessionList()
-	{
+	/**
+	 * Gets the list of sessions stored in the database.
+	 * @return  a list containing all the sessions.
+	 */
+	public List<Session> getSessionList() {
+		
 		return this.sessionList;
 	}
 	
-	public List<Course> getCoursesList()
-	{
+	/**
+	 * Gets the list of courses stored in the database.
+	 * @return  a list containing all the courses.
+	 */
+	public List<Course> getCoursesList() {
+		
 		return this.coursesList;
 	}
 	
-	public List<Group> getGroupList()
-	{
+	/**
+	 * Gets the list of groups stored in the database.
+	 * @return  a list containing all the groups.
+	 */
+	public List<Group> getGroupList() {
+		
 		return this.groupList;
 	}
-/*	Those 3 methods are commented to silence the "no return" warning
-	public List<Group> getGroupsCourse(Course course)
-	{
-		//TODO implement this
+
+	/**
+	 * Gets the list of groups that belong to a specific course.
+	 * @return  a list containing all those groups.
+	 */
+	public List<Group> getGroupsCourse(Course course) {
 		
+		//TODO 
+		return null;
 	}
 	
-	public List<Session> getSessionsGroup(Group group)
-	{
-		//implement
+	/**
+	 * Gets the list of sessions that belong to a specific course.
+	 * @return  a list  containing all those sessions.
+	 */
+	public List<Session> getSessionsGroup(Group group) {
+		
+		//TODO
+		return null;
 	}
 	
-	public List<Room> getRoomsBuilding(Building building)
-	{
-		//implement
+	/**
+	 * Gets the list of rooms that belong to a specific building.
+	 * @return  a list containing all those groups.
+	 */
+	public List<Room> getRoomsBuilding(Building building) {
+		
+		//TODO
+		return null;
 	}
-	*/
+	
 }

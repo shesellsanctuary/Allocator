@@ -4,23 +4,29 @@
 package allocator.domain;
 
 /**
- * @author felipebertoldo
- *
+ * @author felipebertoldo, emilycalvet, marcellotomazi
+ * @version %I%, %G%
  */
+
 public class Building {
 
 	private String id;
 	
 	/**
-	 * 
+	 * Class constructor specifying the building ID.
+	 * @param id the string containing the building's ID.
 	 */
 	public Building(String id) {
-		// TODO Auto-generated constructor stub
+		
 		this.id = id;
 	}
 	
-	public String getId()
-	{
+	/**
+	 * Gets the ID of the building.
+	 * @return  a string containing the building's ID.
+	 */
+	public String getId() {
+		
 		return this.id;
 	}
 

@@ -16,7 +16,7 @@ public class Group {
 	private String id;
 	private Course course;
 	private int numberOfStudents;
-	private List<Session> session;
+	private List<Session> sessions;
 	private List<Professor> teachers;
 	
 	/**
@@ -31,7 +31,7 @@ public class Group {
 		this.id = id;
 		this.course = course;
 		this.teachers = teachers;
-		this.session = new ArrayList<Session>();
+		this.sessions = new ArrayList<Session>();
 		this.numberOfStudents = numberOfStudents;
 	}
 	
@@ -72,12 +72,21 @@ public class Group {
 	}
 	
 	/**
+	 * Gets all the sessions of the group.
+	 * @return  the list containing the sessions of the group
+	 */
+	public List<Session> getSessions() {
+		
+		return this.sessions;
+	}
+	
+	/**
 	 * Appends a new session to the session list of a course.
 	 * @param newSession the session that will be appended.
 	 */
 	public void addSession(Session newSession) {
 		
-		session.add(newSession);
+		sessions.add(newSession);
 	}
 
 }

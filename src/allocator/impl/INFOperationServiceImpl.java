@@ -47,7 +47,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 		
 		if (database != null) {
 			Alloc geneticAllocator = new Alloc();
-			geneticAllocator.init();
+			geneticAllocator.init(database);
 		}
 		else {
 			// TODO

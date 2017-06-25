@@ -6,6 +6,7 @@ package allocator.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import allocator.data.Database;
 import allocator.util.vectorSort;
 
 /**
@@ -23,6 +24,7 @@ public class Alloc {
 	private List<Schedule> currentPopulation;
 	private List<Float> currentPopulationFitness;
 	private int solutionIndex;
+	protected Database database;
 	
 	/**
 	 * Class constructor
@@ -30,8 +32,7 @@ public class Alloc {
 	public Alloc() {
 		newPopulation = new ArrayList<Schedule>();
 		currentPopulation = new ArrayList<Schedule>();
-		currentPopulationFitness = new ArrayList<Float>();
-		
+		currentPopulationFitness = new ArrayList<Float>();		
 	}
 	
 	public int getSolutionIndex(){
@@ -44,8 +45,9 @@ public class Alloc {
 	/**
 	 * Initializes the genetic algorithm.
 	 */
-	public void init()
+	public void init(Database database)
 	{
+		this.database= database;
 		createNewPopulation();
 		populationFitnessCalc();
 		int found = checkValidSolution();
@@ -86,7 +88,7 @@ public class Alloc {
 		// Creates #populationSize possible solutions
 		for(int i = 0; i < populationSize; i++)
 		{
-			Schedule newOne = new Schedule();			
+			Schedule newOne = new Schedule(database);			
 			newOne.createSolution();
 			currentPopulation.add(newOne);
 		}

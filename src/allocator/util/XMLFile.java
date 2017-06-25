@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import allocator.data.Database;
 import allocator.domain.*;
 
 
@@ -25,6 +26,7 @@ import allocator.domain.*;
 public class XMLFile {
 
 	private String pathName;
+	private Database database;
 	private static final int EMPTY_NUMBER = -1;
 	private static final String EMPTY_STR = "";
 	
@@ -35,6 +37,15 @@ public class XMLFile {
 	public XMLFile(String pathName) {
 		
 		this.pathName = pathName;
+		this.database = new Database();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Database getDatabase() {
+		return this.database;
 	}
 	
 	
@@ -44,7 +55,7 @@ public class XMLFile {
    public void read() {
 	   
 	   try {
-			
+		   	
 			File newXML = new File(pathName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
@@ -205,11 +216,10 @@ public class XMLFile {
   	 */
   	private Course createCourse(Element courseElement) {
   		
-  		Course currentCourse = new Course(courseElement.getAttribute("name"), courseElement.getAttribute("id"));
-  		//System.out.println(currentCourse.getName());
-  		// TODO: INSERT into Database
+  		Course newCourse = new Course(courseElement.getAttribute("name"), courseElement.getAttribute("id"));
+  		database.insert(newCourse);
   		
-  		return currentCourse;
+  		return newCourse;
   	}
   	
   	/**
@@ -225,23 +235,13 @@ public class XMLFile {
 		for (int professor = 0; professor < professors.length; professor++) {
 			
 			Professor newProf = new Professor(professors[professor]);
+			database.insert(newProf);
 			profList.add(newProf);
 			//TODO: INSERT into Database
 		}
 		return profList;
   	}
-  	
-  	/**
-  	 * 
-  	 * @param data
-  	 * @return
-  	 */
-  	private String[] createListProfessors(String data) {
-  		
-  		String professors[] = data.split(Pattern.quote(","));
-  		return professors;
-  	}
-  	
+  	 	
   	/**
   	 * 
   	 * @param groupElement
@@ -253,9 +253,9 @@ public class XMLFile {
   		
   		int numberOfStudents = Integer.parseInt(groupElement.getAttribute("number_of_students"));
 		Group newGroup = new Group(numberOfStudents, profList, groupElement.getAttribute("id"), course);
-  		//System.out.println(newGroup.getId());
-  		// TODO: INSERT into Database	
-  		return newGroup;
+		database.insert(newGroup);
+  		
+		return newGroup;
   	}
   	
   	/**
@@ -280,8 +280,8 @@ public class XMLFile {
 	  			}
 	  		}
   		}
-		@SuppressWarnings("unused") //TODO: remove this when newSession is used.
 		Session newSession = new Session(weekday, duration, sessionElement.getAttribute("start_time"), feature_ids, group);
+		database.insert(newSession);
   	}
   	
   	/**
@@ -291,7 +291,8 @@ public class XMLFile {
   	private Building createBuilding(Element buildingElement) {
   		
 		Building newBuilding = new Building(buildingElement.getAttribute("id"));
-		// toca no banco
+		database.insert(newBuilding);
+		
 		return newBuilding;
   	}
   	
@@ -319,7 +320,18 @@ public class XMLFile {
 	  		}
   		}
   		Room newRoom = new Room(roomElement.getAttribute("id"), feature_ids, numberPlaces, availableRoom, building, roomElement.getAttribute("note"));
-  		// taca no banco
+  		database.insert(newRoom);
+  	}
+  	
+  	/**
+  	 * 
+  	 * @param data
+  	 * @return
+  	 */
+  	private String[] createListProfessors(String data) {
+  		
+  		String professors[] = data.split(Pattern.quote(","));
+  		return professors;
   	}
   	
   	/**

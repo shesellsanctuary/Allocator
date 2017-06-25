@@ -6,6 +6,8 @@ package allocator.impl;
 import java.io.File;
 
 import allocator.INFOperationService;
+import allocator.data.Database;
+import allocator.util.XMLFile;
 
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi
@@ -14,11 +16,16 @@ import allocator.INFOperationService;
 
 public class INFOperationServiceImpl implements INFOperationService {
 
+	private Database database;
+	private XMLFile xml;
+	
 	/**
 	 * Class constructor.
 	 */
 	public INFOperationServiceImpl() {
 		
+		this.database = null;
+		this.xml = new XMLFile("/teste/teste.xml");
 	}
 
 	
@@ -27,8 +34,9 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 */
 	@Override
 	public void readXML(File inputFile) {
-		// TODO 
-
+		
+		xml.read();
+		this.database = xml.getDatabase();
 	}
 
 	/* (non-Javadoc)
@@ -37,9 +45,13 @@ public class INFOperationServiceImpl implements INFOperationService {
 	@Override
 	public void roomAlloc() {
 		
-		Alloc geneticAllocator = new Alloc();
-		geneticAllocator.init();
-		
+		if (database != null) {
+			Alloc geneticAllocator = new Alloc();
+			geneticAllocator.init();
+		}
+		else {
+			// TODO
+		}
 		
 	}
 
@@ -48,7 +60,12 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 */
 	@Override
 	public File exportXML() {
-		// TODO 
+		if (database != null) {
+			// TODO
+		}
+		else {
+			// TODO
+		}
 		return null;
 	}
 

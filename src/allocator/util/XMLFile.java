@@ -172,11 +172,10 @@ public class XMLFile {
 				org.w3c.dom.Node buildingNode = buildingList.item(building);
 				if (buildingNode.getNodeType() == Node.ELEMENT_NODE) {
 
-					//System.out.println("[BUILDINGS]");
 					Element buildingElement = (Element) buildingNode;
-					//System.out.println(" ID: " + buildingElement.getAttribute("id"));	
+					Building relatedBuilding = createBuilding(buildingElement);
 					NodeList roomList = buildingElement.getChildNodes();
-					readRooms(roomList);			
+					readRooms(roomList, relatedBuilding);			
 				}
 			}
 		}
@@ -186,20 +185,15 @@ public class XMLFile {
    	 * 
    	 * @param roomList
    	 */
-  	private void readRooms(NodeList roomList) {
+  	private void readRooms(NodeList roomList, Building building) {
   		
   		for (int room  = 0; room < roomList.getLength(); room++) {
 
 			org.w3c.dom.Node roomNode = roomList.item(room);
 			if (roomNode.getNodeType() == Node.ELEMENT_NODE) {
 
-				//System.out.print("\t[ROOM]");
-				@SuppressWarnings("unused") //TODO
 				Element roomElement = (Element) roomNode;
-				//System.out.print(" ID: " + roomElement.getAttribute("id"));
-				//System.out.print(" Feature IDs: " + roomElement.getAttribute("feature_ids"));
-				//System.out.print(" Seats: " + roomElement.getAttribute("number_of_places"));
-				//System.out.println(" Info: " + roomElement.getAttribute("note"));
+				createRoom(roomElement, building);
 			}
 		}
   	}
@@ -291,6 +285,44 @@ public class XMLFile {
   	}
   	
   	/**
+  	 * TODO:
+  	 * @param buildingElement
+  	 */
+  	private Building createBuilding(Element buildingElement) {
+  		
+		Building newBuilding = new Building(buildingElement.getAttribute("id"));
+		// toca no banco
+		return newBuilding;
+  	}
+  	
+  	/**
+  	 * TODO:
+  	 * @param roomElement
+  	 * @param building
+  	 * @return
+  	 */
+  	private void createRoom(Element roomElement, Building building) {
+		
+  		boolean availableRoom = strToBool(roomElement.getAttribute("available_for_allocation"));
+  		int numberPlaces = strToInt(roomElement.getAttribute("number_of_places"));
+  		List<Integer> feature_ids = new ArrayList<Integer>();
+  		String featIdStr = roomElement.getAttribute("feature_ids");
+
+  		if(featIdStr != EMPTY_STR) {
+  			
+  			String feat_ids[] = featIdStr.split(Pattern.quote(","));
+	  		for (int feature = 0; feature < feat_ids.length; feature++) 
+	  		{
+	  			if(feat_ids[feature] != null) {
+	  				feature_ids.add(Integer.parseInt(feat_ids[feature]));
+	  			}
+	  		}
+  		}
+  		Room newRoom = new Room(roomElement.getAttribute("id"), feature_ids, numberPlaces, availableRoom, building, roomElement.getAttribute("note"));
+  		// taca no banco
+  	}
+  	
+  	/**
   	 * Parses a String to an Integer. If the string is empty, returns -1. 
   	 * It works for our XML File, once it is only used with >= 0 values
   	 * @param str 
@@ -309,6 +341,30 @@ public class XMLFile {
   		}
   		
   		return number;
+  	}
+  	
+  	/**
+  	 * 
+  	 * @param str
+  	 * @return
+  	 */
+  	private boolean strToBool(String str) {
+  		
+  		boolean booleanValue = true;
+  		if (str != EMPTY_STR) {
+  			
+  			if (str == "true") {
+  				booleanValue = true;
+  			}
+  			else if (str == "false") {
+  				booleanValue = false;
+  			}
+  		}
+  		else {
+  			booleanValue = true;
+  		}
+	
+  		return booleanValue;
   	}
 }
 

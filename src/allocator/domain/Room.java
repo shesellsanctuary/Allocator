@@ -116,7 +116,7 @@ public class Room {
 
 	/**
 	 * Gets the description of the room
-	 * @return  the string with the description
+	 * @return  the string with the description 
 	 */
 	public String getNote() {
 		

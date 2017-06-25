@@ -5,4 +5,4 @@
  * @author felipebertoldo
  *
  */
-package util;
+package allocator.util;

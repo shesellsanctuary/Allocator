@@ -1,5 +1,6 @@
 /**
- * 
+ * Package allocator contains the methods that provide a room allocation.
+ * @see INFOperationService
  */
 
 /**

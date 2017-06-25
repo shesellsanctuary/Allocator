@@ -13,11 +13,12 @@ import java.util.List;
 public class Session {
 
 	private Room room;
+	private Group group;
 	private int weekday;
 	private int duration;
 	private String startTime;
 	private List<Integer> features;
-	private Group group;
+	
 	
 	/**
 	 * Class constructor specifying the session data.
@@ -25,6 +26,7 @@ public class Session {
 	 * @param duration		how long the session lasts
 	 * @param startTime		the session start time (e.g.: 13:30)
 	 * @param features		a list of available features.
+	 * @param group			the group to which the session belongs
 	 */
 	public Session(int weekday, int duration, String startTime, List<Integer> features, Group group) 
 	{
@@ -91,6 +93,10 @@ public class Session {
 		return this.duration;
 	}
 	
+	/**
+	 * Gets the group to which the session belongs.
+	 * @return
+	 */
 	public Group getGroup()
 	{
 		return this.group;

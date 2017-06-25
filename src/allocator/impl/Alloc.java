@@ -6,7 +6,7 @@ package allocator.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.vectorSort;
+import allocator.util.vectorSort;
 
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi

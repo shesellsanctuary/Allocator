@@ -87,7 +87,8 @@ public class Database {
 	 */
 	public List<Group> getGroupsCourse(Course course) {
 		
-		//TODO 
+		//TODO: how to get all the groups of a course if group hasn't a Course attribute?
+		//		we need to check that! @see Groups.java
 		return null;
 	}
 	
@@ -97,8 +98,7 @@ public class Database {
 	 */
 	public List<Session> getSessionsGroup(Group group) {
 		
-		//TODO
-		return null;
+		return group.getSessions();
 	}
 	
 	/**
@@ -107,7 +107,8 @@ public class Database {
 	 */
 	public List<Room> getRoomsBuilding(Building building) {
 		
-		//TODO
+		//TODO: IMPOSSIBLE, once a building has only its name and ID.
+		//      We should change Building/Room relationship? One building has a room list
 		return null;
 	}
 	

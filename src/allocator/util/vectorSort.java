@@ -1,7 +1,7 @@
 /**
  * 
  */
-package util;
+package allocator.util;
 
 import java.util.ArrayList;
 import java.util.List;

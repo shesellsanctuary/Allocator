@@ -1,0 +1,179 @@
+<allocation>
+<courses>
+<course name="AGENTES AUTÔNOMOS E SISTEMAS MULTIAGENTES" id="INF05019">
+-
+<group number_of_students="30" teacher="ANA LUCIA CETERTICH BAZZAN" id="U">
+<session room_id="" duration="240" building_id="" weekday="5" start_time="13:30"/>
+</group>
+</course>
+<course name="AGENTES AUTÔNOMOS E SISTEMAS MULTIAGENTES" id="CMP124">
+-
+<group number_of_students="30" teacher="ANA LUCIA CETERTICH BAZZAN" id="U">
+<session duration="240" requires_building_id="" requires_room_id="" weekday="2" start_time="13:30"/>
+</group>
+</course>
+-
+<course name="ALGORÍTMOS E PROGRAMAÇÃO - CIC" id="INF01202">
+-
+<group number_of_students="40" teacher="ANDERSON MACIEL" id="A, B">
+<session room_id="" duration="120" building_id="" weekday="2" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="13:30"/>
+</group>
+-
+<group number_of_students="20" teacher="ANDERSON MACIEL" id="A">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="5" start_time="13:30"/>
+</group>
+-
+<group number_of_students="20" teacher="ANDERSON MACIEL" id="B">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="5" start_time="15:30"/>
+</group>
+-
+<group number_of_students="40" teacher="ANTONIO CARLOS SCHNEIDER BECK FILHO" id="C, D">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="10:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="10:30"/>
+</group>
+-
+<group number_of_students="23" teacher="ULISSES BRISOLARA CORREA" id="C">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="1" start_time="13:30"/>
+</group>
+-
+<group number_of_students="17" teacher="ULISSES BRISOLARA CORREA" id="D">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="3" start_time="13:30"/>
+</group>
+-
+<group number_of_students="39" teacher="MARA ABEL" id="E, F">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="13:30"/>
+</group>
+-
+<group number_of_students="22" teacher="MARA ABEL" id="E">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="5" start_time="13:30"/>
+</group>
+-
+<group number_of_students="17" teacher="MARA ABEL" id="F">
+<session room_id="" duration="120" feature_ids="1" building_id="" weekday="5" start_time="15:30"/>
+</group>
+</course>
+<course name="ANÁLISE E DESENVOLVIMENTO DE ALGORITMOS" id="CMP155">
+-
+<group number_of_students="40" teacher="MARCUS RITT" id="U">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="13:30"/>
+</group>
+</course>
+-
+<course name="CATEGORIAS COMPUTACIONAIS N" id="INF05006">
+-
+<group number_of_students="40" teacher="PAULO FERNANDO BLAUTH MENEZES" id="U">
+<session duration="" requires_building_id="" requires_room_id="108" weekday="2" start_time="13:30"/>
+<session duration="" weekday="4" start_time="13:30"/>
+</group>
+</course>
+-
+<course name="CIRCUITOS DIGITAIS" id="INF01058">
+-
+<group number_of_students="30" teacher="RENATO PEREZ RIBAS" id="A">
+<session room_id="" duration="120" feature_ids="2" building_id="" weekday="2" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="13:30"/>
+</group>
+<group number_of_students="30" teacher="RICARDO AUGUSTO DA LUZ REIS" id="B">
+<session room_id="" duration="120" building_id="" weekday="2" start_time="15:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="15:30"/>
+</group>
+<group number_of_students="30" teacher="FERNANDO ROSA DO NASCIMENTO" id="C">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="13:30"/>
+</group>
+<group number_of_students="30" teacher="FERNANDO ROSA DO NASCIMENTO" id="D">
+<session room_id="" duration="120" building_id="" weekday="2" start_time="15:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="15:30"/>
+</group>
+<group number_of_students="30" teacher="SERGIO BAMPI" id="E">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="13:30"/>
+</group>
+</course>
+-
+<course name="COMPLEXIDADE DE ALGORITMOS- B" id="INF05515">
+<group number_of_students="30" teacher="MARIANA LUDERITZ KOLBERG" id="A">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="10:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="10:30"/>
+</group>
+-
+<group number_of_students="30" teacher="MARIANA LUDERITZ KOLBERG" id="B">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="15:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="15:30"/>
+</group>
+</course>
+-
+<course name="FUNDAMENTOS DE ALGORITMOS" id="INF05008">
+<group number_of_students="40" teacher="ANA LUCIA CETERTICH BAZZAN" id="A">
+<session duration="120" requires_building_id="" requires_room_id="ANFA (Anfiteatro Azul)" weekday="1" start_time="13:30"/>
+<session duration="1202" weekday="3" start_time="13:30"/>
+</group>
+<group number_of_students="40" teacher="LEILA RIBEIRO" id="B">
+<session room_id="" duration="120" building_id="" weekday="1" start_time="15:30"/>
+<session room_id="" duration="120" building_id="" weekday="3" start_time="15:30"/>
+</group>
+<group number_of_students="40" teacher="LUCIO MAURO DUARTE" id="C">
+<session room_id="" duration="120" building_id="" weekday="2" start_time="13:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="13:30"/>
+</group>
+<group number_of_students="40" teacher="LUCIO MAURO DUARTE" id="D">
+<session room_id="" duration="120" building_id="" weekday="2" start_time="15:30"/>
+<session room_id="" duration="120" building_id="" weekday="4" start_time="15:30"/>
+</group>
+</course>
+-
+</courses>
+<features>
+<feature name="Laboratório de ensino" id="1"/>
+<feature name="Laboratório de ensino de hardware" id="2"/>
+<feature name="Som e microfone" id="3" hidden="true"/>
+<feature name="Reuniões" id="4"/>
+<feature name="Apresentações (defesas, TCC, etc)" id="5"/>
+<feature name="Tela motorizada" id="6" hidden="true"/>
+<feature name="Eventos e Palestras" id="7"/>
+<feature name="Sala de aula" id="8"/>
+<feature name="Laboratório de ensino para cadeiras de introdução" id="9" hidden="true"/>
+<feature name="Vídeo conferência" id="10"/>
+</features>
+<buildings>
+<building id="43412(65)">
+<room id="ANFV (Anfiteatro Vermelho)" feature_ids="3, 5, 8" number_of_places="76"></room>
+<room id="ANFA (Anfiteatro Azul)" feature_ids="3, 5, 8" number_of_places="76"/>
+<room available_for_allocation="false" id="214" feature_ids="4, 5" number_of_places="15"/>
+<room available_for_allocation="false" id="216" feature_ids="4, 5" number_of_places="15"></room>
+<room available_for_allocation="false" id="220" feature_ids="4, 5, 10" number_of_places="20"></room>
+</building>
+<building id="43413(67)">
+<room id="101" feature_ids="1" note="Laboratório" number_of_places="45"/>
+<room id="102" feature_ids="1" note="Laboratório" number_of_places="45"/>
+<room id="103" feature_ids="1" note="Laboratório" number_of_places="45"/>
+<room id="104" feature_ids="1" note="Laboratório" number_of_places="45"/>
+<room id="105" feature_ids="2" number_of_places="20"/>
+<room id="106" feature_ids="5, 8" number_of_places="40"/>
+<room available_for_allocation="false" id="INF (Auditório)" feature_ids="3, 6, 7" number_of_places="155"></room>
+</building>
+<building id="43424(72)">
+<room id="102" feature_ids="5, 8" number_of_places="40"></room>
+<room available_for_allocation="false" id="AUDC (Auditório Prof. Castilho)" feature_ids="3, 5, 6, 7" number_of_places="126"></room>
+</building>
+<building id="43425(73)">
+<room id="101" feature_ids="9" note="Laboratório" number_of_places="40"/>
+<room id="102" feature_ids="5, 8" number_of_places="40"/>
+<room id="103" feature_ids="9" note="Laboratório" number_of_places="40"/>
+<room id="104" feature_ids="5, 8" number_of_places="40"/>
+<room id="105" feature_ids="9" note="Laboratório" number_of_places="40"/>
+<room id="107" feature_ids="5, 8" number_of_places="45"/>
+<room id="108" feature_ids="5, 8" number_of_places="60"/>
+<room id="109" feature_ids="5, 8" number_of_places="45"/>
+<room id="111" feature_ids="5, 8" number_of_places="45"/>
+<room id="112" feature_ids="5, 8" number_of_places="45"/>
+<room id="113" feature_ids="5, 8" number_of_places="45"/>
+<room id="114" feature_ids="5, 8" number_of_places="45"/>
+<room id="116" feature_ids="5, 8" number_of_places="45"/>
+<room id="118" feature_ids="5, 8" number_of_places="45"/>
+</building>
+</buildings>
+</allocation>

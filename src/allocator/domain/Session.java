@@ -17,6 +17,7 @@ public class Session {
 	private int duration;
 	private String startTime;
 	private List<Integer> features;
+	private Group group;
 	
 	/**
 	 * Class constructor specifying the session data.
@@ -25,12 +26,13 @@ public class Session {
 	 * @param startTime		the session start time (e.g.: 13:30)
 	 * @param features		a list of available features.
 	 */
-	public Session(int weekday, int duration, String startTime, List<Integer> features) 
+	public Session(int weekday, int duration, String startTime, List<Integer> features, Group group) 
 	{
 		this.weekday = weekday;
 		this.duration = duration;
 		this.startTime = startTime;
 		this.features = features;
+		this.group = group;
 	}
 	
 	/**
@@ -87,6 +89,11 @@ public class Session {
 	public int getDuration()
 	{
 		return this.duration;
+	}
+	
+	public Group getGroup()
+	{
+		return this.group;
 	}
 
 }

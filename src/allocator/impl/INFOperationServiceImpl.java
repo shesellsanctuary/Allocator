@@ -18,7 +18,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 * Class constructor.
 	 */
 	public INFOperationServiceImpl() {
-
+		
 	}
 
 	
@@ -36,8 +36,11 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 */
 	@Override
 	public void roomAlloc() {
-		// TODO
-
+		
+		Alloc geneticAllocator = new Alloc();
+		geneticAllocator.init();
+		
+		
 	}
 
 	/* (non-Javadoc)

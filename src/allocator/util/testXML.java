@@ -3,6 +3,8 @@
  */
 package allocator.util;
 
+import allocator.domain.*;
+
 /**
  * @author felipebertoldo
  *
@@ -24,5 +26,7 @@ public class testXML {
 		arq.read();
 
 	}
+	
+
 
 }

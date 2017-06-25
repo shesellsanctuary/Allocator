@@ -21,7 +21,7 @@ public class testXML {
 	 */
 	public static void main(String[] args) {
 		XMLFile arq = new XMLFile("./src/allocator/data/full.xml");
-		arq.readXML();
+		arq.read();
 
 	}
 

@@ -24,7 +24,7 @@ import allocator.domain.*;
  */
 public class XMLFile {
 
-	private String filePath;
+	private String pathName;
 	private static final int EMPTY_NUMBER = -1;
 	private static final String EMPTY_STR = "";
 	
@@ -32,23 +32,23 @@ public class XMLFile {
 	 * Class constructor specifying the file path
 	 * @param filePath  string containing the path of the file
 	 */
-	public XMLFile(String filePath) {
+	public XMLFile(String pathName) {
 		
-		this.filePath = filePath;
+		this.pathName = pathName;
 	}
 	
 	
 	/**
 	 * Parses the XML File and put its information on the Database.
 	 */
-   public void readXML() {
+   public void read() {
 	   
 	   try {
 			
-			File newXML = new File(filePath);
+			File newXML = new File(pathName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(newXML);
+			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+			Document doc = docBuilder.parse(newXML);
 			
 			readCoursesStructure(doc);
 			readFeaturesStructure(doc);
@@ -265,7 +265,7 @@ public class XMLFile {
   	}
   	
   	/**
-  	 * TODO: resolve Integer.parseInt problems with an empty string
+  	 * TODO:
   	 * @param sessionElement
   	 * @param group
   	 */
@@ -290,6 +290,12 @@ public class XMLFile {
 		Session newSession = new Session(weekday, duration, sessionElement.getAttribute("start_time"), feature_ids, group);
   	}
   	
+  	/**
+  	 * Parses a String to an Integer. If the string is empty, returns -1. 
+  	 * It works for our XML File, once it is only used with >= 0 values
+  	 * @param str 
+  	 * @return the number on the string
+  	 */
   	private int strToInt(String str) {
   		
   		int number;

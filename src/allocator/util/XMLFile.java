@@ -304,7 +304,7 @@ public class XMLFile {
   	 */
   	private void createRoom(Element roomElement, Building building) {
 		
-  		boolean availableRoom = strToBool(roomElement.getAttribute("available_for_allocation"));
+  		boolean availableRoom = setAvailableAllocationToBool(roomElement.getAttribute("available_for_allocation"));
   		int numberPlaces = strToInt(roomElement.getAttribute("number_of_places"));
   		List<Integer> feature_ids = new ArrayList<Integer>();
   		String featIdStr = roomElement.getAttribute("feature_ids");
@@ -360,7 +360,7 @@ public class XMLFile {
   	 * @param str
   	 * @return
   	 */
-  	private boolean strToBool(String str) {
+  	private boolean setAvailableAllocationToBool(String str) {
   		
   		boolean booleanValue = true;
   		if (str != EMPTY_STR) {

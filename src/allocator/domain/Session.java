@@ -18,6 +18,7 @@ public class Session {
 	private int duration;
 	private String startTime;
 	private List<Integer> features;
+	private String id;
 	
 	
 	/**
@@ -35,6 +36,7 @@ public class Session {
 		this.startTime = startTime;
 		this.features = features;
 		this.group = group;
+		this.id = group.getId() + weekday + duration;
 	}
 	
 	/**
@@ -100,6 +102,11 @@ public class Session {
 	public Group getGroup()
 	{
 		return this.group;
+	}
+	
+	public String getId()
+	{
+		return this.id;
 	}
 
 }

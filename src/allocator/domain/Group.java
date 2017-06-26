@@ -75,7 +75,7 @@ public class Group {
 	 * Gets all the sessions of the group.
 	 * @return  the list containing the sessions of the group
 	 */
-	public List<Session> getSessions() {
+	public List<Session> getSessionsList() {
 		
 		return this.sessions;
 	}

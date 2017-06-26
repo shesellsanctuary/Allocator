@@ -3,6 +3,9 @@
  */
 package allocator.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi
  * @version %I%, %G%
@@ -12,6 +15,7 @@ public class Course {
 	
 	private String id;
 	private String name;
+	private List<Group> groups;
 	
 	/**
 	 * Class constructor specifying the course name and its ID.
@@ -22,7 +26,8 @@ public class Course {
 	public Course(String name, String id) {
 		
 		this.name = name;
-		this.id   = id;
+		this.id = id;
+		this.groups = new ArrayList<Group>();
 	}
 	
 	/**
@@ -41,6 +46,23 @@ public class Course {
 	public String getId() {
 		
 		return this.id;
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public List<Group> getGroupList() {
+		
+		return this.groups;
+	}
+	
+	/**
+	 * TODO
+	 */
+	public void addGroup(Group newGroup) {
+		
+		groups.add(newGroup);
 	}
 
 }

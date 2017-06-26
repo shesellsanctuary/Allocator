@@ -163,7 +163,7 @@ public class Database {
 	 */
 	public List<Session> getSessionsGroup(Group group) {
 		
-		return group.getSessions();
+		return group.getSessionsList();
 	}
 	
 	

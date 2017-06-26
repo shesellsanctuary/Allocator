@@ -3,6 +3,9 @@
  */
 package allocator.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi
  * @version %I%, %G%
@@ -11,6 +14,7 @@ package allocator.domain;
 public class Building {
 
 	private String id;
+	private List<Room> rooms; 
 	
 	/**
 	 * Class constructor specifying the building ID.
@@ -19,6 +23,7 @@ public class Building {
 	public Building(String id) {
 		
 		this.id = id;
+		this.rooms = new ArrayList<Room>();
 	}
 	
 	/**
@@ -28,6 +33,23 @@ public class Building {
 	public String getId() {
 		
 		return this.id;
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public List<Room> getRoomList() {
+		
+		return this.rooms;
+	}
+	
+	/**
+	 * TODO
+	 */
+	public void addRoom(Room newRoom) {
+		
+		rooms.add(newRoom);
 	}
 
 }

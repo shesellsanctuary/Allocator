@@ -15,7 +15,7 @@ public interface INFOperationService {
 	 * Imports a XML file, parse its data and add them to the Database.
 	 * @param inputFile the XML file
 	 */
-	public void readXML(File inputFile);
+	public void readXML(String pathname);
 
 	/**
 	 * With the information found on the input file, finds a schedule for the courses and rooms.

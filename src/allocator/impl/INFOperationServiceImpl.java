@@ -25,7 +25,6 @@ public class INFOperationServiceImpl implements INFOperationService {
 	public INFOperationServiceImpl() {
 		
 		this.database = null;
-		this.xml = new XMLFile("/teste/teste.xml");
 	}
 
 	
@@ -33,8 +32,9 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 * @see allocator.INFOperationService#readXML(java.io.File)
 	 */
 	@Override
-	public void readXML(File inputFile) {
+	public void readXML(String pathname) {
 		
+		this.xml = new XMLFile(pathname);
 		xml.read();
 		this.database = xml.getDatabase();
 	}

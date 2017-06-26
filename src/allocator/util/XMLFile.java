@@ -254,6 +254,7 @@ public class XMLFile {
   		int numberOfStudents = Integer.parseInt(groupElement.getAttribute("number_of_students"));
 		Group newGroup = new Group(numberOfStudents, profList, groupElement.getAttribute("id"), course);
 		database.insert(newGroup);
+		course.addGroup(newGroup);
   		
 		return newGroup;
   	}
@@ -281,6 +282,7 @@ public class XMLFile {
 	  		}
   		}
 		Session newSession = new Session(weekday, duration, sessionElement.getAttribute("start_time"), feature_ids, group);
+		group.addSession(newSession);
 		database.insert(newSession);
   	}
   	
@@ -320,6 +322,7 @@ public class XMLFile {
 	  		}
   		}
   		Room newRoom = new Room(roomElement.getAttribute("id"), feature_ids, numberPlaces, availableRoom, building, roomElement.getAttribute("note"));
+  		building.addRoom(newRoom);
   		database.insert(newRoom);
   	}
   	

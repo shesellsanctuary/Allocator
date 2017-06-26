@@ -24,7 +24,7 @@ public class Alloc {
 	private List<Schedule> currentPopulation;
 	private List<Float> currentPopulationFitness;
 	private int solutionIndex;
-	protected Database database;
+	private Database database;
 	
 	/**
 	 * Class constructor
@@ -56,7 +56,6 @@ public class Alloc {
 			//TODO ACHHHHHHOU		
 			solutionIndex = found;
 			return;
-			// salvar xml
 		}
 		
 		for(int i = 0; i < maxIterations; i++) 
@@ -71,7 +70,6 @@ public class Alloc {
 				//TODO ACHHHHHHOU		
 				solutionIndex = found;
 				return;
-				// salvar xml
 			}	
 		}
 		solutionIndex = -1;

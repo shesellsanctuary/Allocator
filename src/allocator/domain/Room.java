@@ -19,7 +19,6 @@ public class Room {
 	private Building building;
 	private List<Integer> features;
 	private boolean availableForAllocation;
-	private HashMap<String,Boolean> roomMap;
 	
 	/**
 	 * Class constructor specifying the room data.
@@ -38,7 +37,6 @@ public class Room {
 		this.building = building;
 		this.numOfPlaces = numOfPlaces;
 		this.availableForAllocation = availableForAllocation;
-		this.roomMap = new HashMap<String,Boolean>();
 	}
 	
 
@@ -87,33 +85,6 @@ public class Room {
 		return this.building;
 	}
 	
-	/**
-	 * Sets the availability of the room 
-	 * @param availability  true for available, false otherwise
-	 */
-	public void setAvailability(Boolean availability) {
-		
-	   this.availableForAllocation = availability;	
-	}
-	
-	/**
-	 * Allocates the room
-	 * @param startTime  string that contains the start time of the activity that will occupy the room
-	 */
-	public void alloc(String startTime) {
-		
-		//TODO implementation
-	}
-	
-	/**
-	 * Gets the RoomMap TODO: a better comment
-	 * @return RoomMap
-	 */
-	public HashMap<String, Boolean> getRoomMap() {
-		
-		return this.roomMap;
-	}
-
 	/**
 	 * Gets the description of the room
 	 * @return  the string with the description 

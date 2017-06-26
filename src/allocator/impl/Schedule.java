@@ -19,16 +19,14 @@ import allocator.domain.Session;
 
 public class Schedule {
 	
-	private int mutationSize;
 	private float fitnessValue;
 	private List<Integer> meetCriteria;
 	private List<Integer> scheduleAllocation;
 	private HashMap<String,Integer> sessionMap;
-	private int numberOfCrossoverPoints;
 	private int roomCount;
 	private int sessionCount;
-	List<Session> sessionList;
-	List<Room> roomList;
+	private List<Session> sessionList;
+	private List<Room> roomList;
 	
 	/**
 	 * Class constructor

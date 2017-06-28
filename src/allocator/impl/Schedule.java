@@ -22,10 +22,10 @@ public class Schedule {
 	private float fitnessValue;
 	private List<Integer> meetCriteria;
 	private List<Integer> scheduleAllocation;
-	private HashMap<String,Integer> sessionMap;
+	public  HashMap<String,Integer> sessionMap;
 	private int roomCount;
 	private int sessionCount;
-	private List<Session> sessionList;
+	public  List<Session> sessionList;
 	private List<Room> roomList;
 	
 	/**
@@ -65,7 +65,7 @@ public class Schedule {
 			
 			if (doneClassAllocation != 1) {
 				System.out.println("Oops! Sounds like there is not enough rooms for your classes!");
-				// TODO: Adicionar Exception e parar código
+				// TODO: Adicionar Exception e parar cÃ³digo
 			}
 		}	
 	}
@@ -99,7 +99,7 @@ public class Schedule {
 		if (startTimeSymbol == -1) {
 			
 			System.out.println("Oops! Sounds like we have a class that starts in a very strange hour!");
-			// TODO: Adicionar Exception e parar código
+			// TODO: Adicionar Exception e parar cÃ³digo
 		}
 		
 		possibleSlotsSchedule = createListOfPossibleSlots(startTimeSymbol, weekday);

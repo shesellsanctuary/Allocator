@@ -146,7 +146,7 @@ public class Alloc {
 	
 	/*
 	 * Takes two schedules from new population, creates a Child from the Father(first one) and iterates on the Father's sessionMap's size
-	 * randomly inserting the Mother's(second) sessionMap's values on the Child's.
+	 * randomly inserting random number of the Mother's(second) sessionMap's values on the Child's.
 	 * The Child is inserted in the new population.
 	 */
 	private void crossover()
@@ -154,7 +154,7 @@ public class Alloc {
 		vectorSort preSorted = new vectorSort(currentPopulationFitness);//TODO deixei isso aqui, mas acho que da pra tirar
 		List<Integer> sorted = preSorted.sort();
 		
-		int slot = -1, randomInt = -1;
+		int slot = -1, randomInt = -1, randomCrossoverNumber = -1;
 		Schedule scheduleFather, scheduleMother, scheduleChild;
 		Session randomSession;
 		String randomSessionId;
@@ -166,15 +166,16 @@ public class Alloc {
 			scheduleFather = currentPopulation.get(i);
 			scheduleMother = currentPopulation.get(i+1);
 			scheduleChild = scheduleFather;
+			randomCrossoverNumber = randomGenerator.nextInt(scheduleFather.sessionMap.size());
 			
-			for(int j = 0; j < scheduleFather.sessionMap.size(); j++)
+			for(int j = 0; j < randomCrossoverNumber; j++)
 			{
 				
 				randomInt = randomGenerator.nextInt(scheduleMother.sessionList.size() - 1);
 				randomSession = scheduleMother.sessionList.get(randomInt);
 				randomSessionId = randomSession.getId();
 				
-				slot = scheduleMother.sessionMap.get(randomSession);
+				slot = scheduleMother.sessionMap.get(randomSessionId);
 				
 				scheduleChild.sessionMap.put(randomSessionId, slot);
 
@@ -209,8 +210,8 @@ public class Alloc {
 				randomSession2 = schedule.sessionList.get(randomInt2);
 				randomSessionId2 = randomSession2.getId();
 					
-				slot1 = schedule.sessionMap.get(randomSession1);
-				slot2 = schedule.sessionMap.get(randomSession2);
+				slot1 = schedule.sessionMap.get(randomSessionId1);
+				slot2 = schedule.sessionMap.get(randomSessionId2);
 					
 				schedule.sessionMap.put(randomSessionId1, slot2);
 				schedule.sessionMap.put(randomSessionId2, slot1);

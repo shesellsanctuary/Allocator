@@ -7,7 +7,7 @@ import java.io.File;
 
 import allocator.INFOperationService;
 import allocator.data.Database;
-import allocator.util.XMLFile;
+import allocator.util.FileRep;
 
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi
@@ -17,7 +17,7 @@ import allocator.util.XMLFile;
 public class INFOperationServiceImpl implements INFOperationService {
 
 	private Database database;
-	private XMLFile xml;
+	private FileRep file;
 	
 	/**
 	 * Class constructor.
@@ -32,11 +32,11 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 * @see allocator.INFOperationService#readXML(java.io.File)
 	 */
 	@Override
-	public void readXML(String pathname) {
+	public void readFile(String pathname) {
 		
-		this.xml = new XMLFile(pathname);
-		xml.read();
-		this.database = xml.getDatabase();
+		this.file = new FileRep(pathname);
+		file.read();
+		this.database = file.getDatabase();
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +59,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 	 * @see allocator.INFOperationService#exportXML()
 	 */
 	@Override
-	public File exportXML() {
+	public File exportFile() {
 		if (database != null) {
 			// TODO
 		}

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import allocator.data.Database;
+import allocator.domain.Group;
 import allocator.domain.Room;
 import allocator.domain.Session;
 
@@ -19,8 +20,8 @@ import allocator.domain.Session;
 
 public class Schedule {
 	
+	public static final int classesPerDay = 4;
 	private float fitnessValue;
-	private List<Integer> meetCriteria;
 	private List<Integer> scheduleAllocation;
 	private HashMap<String,Integer> sessionMap;
 	private int roomCount;
@@ -33,7 +34,6 @@ public class Schedule {
 	 */
 	public Schedule(Database db) {
 	
-		meetCriteria = new ArrayList<Integer>();
 		scheduleAllocation = new ArrayList<Integer>();
 		sessionMap = new HashMap<String,Integer>();
 		roomCount = db.getRoomList().size();
@@ -49,9 +49,7 @@ public class Schedule {
 			
 		String startTime, sessionId;
 		Session currentSession;
-		int duration;
-		int weekday;
-		int doneClassAllocation;
+		int duration = -1, weekday = -1, doneClassAllocation = -1;
 		
 		for (int session = 0; session < sessionCount; session++) {
 			
@@ -74,7 +72,67 @@ public class Schedule {
 	 * TODO
 	 */
 	public void calculateFitness() {
-		//TODO
+		
+		Session currentSession;
+		Room currentRoom;
+		Group currentGroup;
+		List<Integer> sessionFeaturesList, roomFeaturesList;
+		int slot = -1, sessionPoints = 0, sessionStudentsNum = -1, roomSeats = -1, failedFeatures = 0, totalSessionPoints = 0;
+		boolean alreadyExists;
+		
+		for (int session = 0; session < sessionCount; session++) {
+			
+			sessionPoints = 0;
+			failedFeatures = 0;
+			
+			currentSession = sessionList.get(session);
+			slot = sessionMap.get(currentSession.getId());
+			
+			// First possible point: if a session is in a spare room
+			alreadyExists = sessionMap.containsValue(slot);
+			
+			if (alreadyExists == false) {
+				
+				sessionPoints++;
+			}
+			
+			currentRoom = getSessionRoom(slot, currentSession.getWeekday());
+			
+			// Second possible point: if a session is in a room with enough available seats
+			currentGroup = currentSession.getGroup();
+			sessionStudentsNum = currentGroup.getNumberOfStudents();
+			
+			roomSeats = currentRoom.getNumberOfPlaces();
+			
+			if (roomSeats >= sessionStudentsNum) {
+				
+				sessionPoints++;
+			}
+			
+			// Third possible point: if a session is in a room with all the needed features
+			sessionFeaturesList = currentSession.getFeaturesList();			
+			roomFeaturesList = currentRoom.getFeatures();	
+			
+			for (int feature = 0; feature < sessionFeaturesList.size(); feature++) {
+				
+				if (!roomFeaturesList.contains(sessionFeaturesList.get(feature))) {
+					failedFeatures = 1;
+				}
+			}
+			
+			if (failedFeatures == 0) {
+				
+				sessionPoints++;
+			}
+			
+			// Add the session points to the sum of total sessions points
+			totalSessionPoints += sessionPoints;
+		}
+		
+		// The fitness value is the sum of the points of all session of the schedule, divided
+		// by the total number of points that a schedule can achieve: The number of session times 3
+		fitnessValue = totalSessionPoints/(3*sessionCount);
+
 	}
 	
 	/**
@@ -145,7 +203,7 @@ public class Schedule {
 		return allocated;
 	}
 	
-	private int discoverStartTime(String startTime) {
+	public int discoverStartTime(String startTime) {
 		
 		if (startTime == "08:30") return 0;
 		else if (startTime == "10:30") return 1;
@@ -156,11 +214,11 @@ public class Schedule {
 	
 	private List<Integer> createListOfPossibleSlots(int startTime, int weekday) {
 		
-		int firstSlot =  roomCount*4*(weekday-1) + startTime;
-		int lastSlot = firstSlot + roomCount*4;
+		int firstSlot =  roomCount*classesPerDay*(weekday-1) + startTime;
+		int lastSlot = firstSlot + roomCount*classesPerDay;
 		List<Integer> possibleSlotsSchedule = new ArrayList<Integer>();
 		
-		for (int slot = firstSlot; slot < lastSlot; slot =+ 4) {
+		for (int slot = firstSlot; slot < lastSlot; slot =+ classesPerDay) {
 			
 			if (scheduleAllocation.get(slot) != 0) {
 				
@@ -170,5 +228,29 @@ public class Schedule {
 		
 		return possibleSlotsSchedule;
 	}
-
+	
+	public HashMap<String,Integer> getSessionMap() {
+		return sessionMap;
+	}
+	
+	public void setSessionMap(HashMap<String,Integer> newSessionMap) {
+		sessionMap = newSessionMap;
+	}
+	
+	private Room getSessionRoom(int slot, int weekday) {
+		
+		int weekdayNumberOfSlots, roomIndex;
+		Room currentRoom;
+		
+		weekdayNumberOfSlots = roomCount*classesPerDay;
+		roomIndex = (slot-(weekday*weekdayNumberOfSlots))/classesPerDay;
+		
+		currentRoom = roomList.get(roomIndex);
+		
+		return currentRoom;		
+		
+	}
+	
 }
+
+

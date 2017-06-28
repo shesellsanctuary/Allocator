@@ -4,6 +4,7 @@
 package allocator.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +27,7 @@ public class Alloc {
 	private List<Schedule> currentPopulation;
 	private List<Float> currentPopulationFitness;
 	private int solutionIndex;
+	private int roomCount;
 	private Database database;
 	
 	/**
@@ -34,7 +36,7 @@ public class Alloc {
 	public Alloc() {
 		newPopulation = new ArrayList<Schedule>();
 		currentPopulation = new ArrayList<Schedule>();
-		currentPopulationFitness = new ArrayList<Float>();		
+		currentPopulationFitness = new ArrayList<Float>();
 	}
 	
 	public int getSolutionIndex(){
@@ -50,6 +52,7 @@ public class Alloc {
 	public void init(Database database)
 	{
 		this.database= database;
+		roomCount = database.getRoomList().size();
 		createNewPopulation();
 		populationFitnessCalc();
 		int found = checkValidSolution();
@@ -138,7 +141,7 @@ public class Alloc {
 		
 		for(int i = 0; i < 10; i++)
 		{
-			newPopulation.add(currentPopulation.get(sorted.get(i))); //TODO LINDO! <3
+			newPopulation.add(currentPopulation.get(sorted.get(i))); //TODO LINDO! <3 FIXME: NAO DÁ CERTOOOOOOOOOOOOO!
 		}
 	
 	}
@@ -151,38 +154,42 @@ public class Alloc {
 	 */
 	private void crossover()
 	{
-		vectorSort preSorted = new vectorSort(currentPopulationFitness);//TODO deixei isso aqui, mas acho que da pra tirar
-		List<Integer> sorted = preSorted.sort();
-		
+	
 		int slot = -1, randomInt = -1, randomCrossoverNumber = -1;
-		Schedule scheduleFather, scheduleMother, scheduleChild;
+		Schedule scheduleFather, scheduleMother;
 		Session randomSession;
 		String randomSessionId;
+		HashMap<String,Integer> sessionMapChild, sessionMapMother;
 		Random randomGenerator = new Random();
 		
 		for(int i = 0; i < populationSize; i += 2)
 		{
 			
+			Schedule scheduleChild = new Schedule(database);
+			
 			scheduleFather = currentPopulation.get(i);
 			scheduleMother = currentPopulation.get(i+1);
 			scheduleChild = scheduleFather;
-			randomCrossoverNumber = randomGenerator.nextInt(scheduleFather.sessionMap.size());
+			
+			sessionMapMother = scheduleMother.getSessionMap();
+			sessionMapChild = scheduleChild.getSessionMap();
+			
+			randomCrossoverNumber = randomGenerator.nextInt(scheduleFather.getSessionMap().size());
 			
 			for(int j = 0; j < randomCrossoverNumber; j++)
 			{
 				
-				randomInt = randomGenerator.nextInt(scheduleMother.sessionList.size() - 1);
-				randomSession = scheduleMother.sessionList.get(randomInt);
+				randomInt = randomGenerator.nextInt(database.getSessionList().size() - 1);
+				randomSession = database.getSessionList().get(randomInt);
 				randomSessionId = randomSession.getId();
 				
-				slot = scheduleMother.sessionMap.get(randomSessionId);
+				slot = sessionMapMother.get(randomSessionId);
 				
-				scheduleChild.sessionMap.put(randomSessionId, slot);
-
+				sessionMapChild.put(randomSessionId, slot);
 			}
 			
-			newPopulation.add(scheduleChild); //FILHO
-			
+			scheduleChild.setSessionMap(sessionMapChild);			
+			newPopulation.add(scheduleChild); // Child Schedule, originated from the crossover of two other Schedules	
 		}
 	}
 
@@ -191,31 +198,57 @@ public class Alloc {
 	 */
 	private void mutation()
 	{
-		int slot1 = -1, slot2 = -1, randomInt1 = -1, randomInt2 = -1;
+		int slot1 = -1, slot2 = -1, randomInt1 = -1, randomInt2 = -1, weekday = -1, startTime;
 		Session randomSession1, randomSession2;
 		String randomSessionId1, randomSessionId2;
 		Random randomGenerator = new Random();
 		Schedule schedule;
+		HashMap<String,Integer> sessionMap;
+		List<Integer> possibleSlotsSchedule = new ArrayList<Integer>();
 		
 		for (int i = 0; i < 40; i++)
 		{
-			 schedule = currentPopulation.get(i);
+			schedule = currentPopulation.get(i);
+			sessionMap = schedule.getSessionMap();
 					
-					
-				randomInt1 = randomGenerator.nextInt(schedule.sessionList.size() - 1);
-				randomSession1 = schedule.sessionList.get(randomInt1);
-				randomSessionId1 = randomSession1.getId();
-					
-				randomInt2 = randomGenerator.nextInt(schedule.sessionList.size() - 1);	
-				randomSession2 = schedule.sessionList.get(randomInt2);
-				randomSessionId2 = randomSession2.getId();
-					
-				slot1 = schedule.sessionMap.get(randomSessionId1);
-				slot2 = schedule.sessionMap.get(randomSessionId2);
-					
-				schedule.sessionMap.put(randomSessionId1, slot2);
-				schedule.sessionMap.put(randomSessionId2, slot1);
+			randomInt1 = randomGenerator.nextInt(database.getSessionList().size() - 1);
+			randomSession1 = database.getSessionList().get(randomInt1);
+			
+			randomSessionId1 = randomSession1.getId();
+			
+			startTime = schedule.discoverStartTime(randomSession1.getStartTime());
+			weekday = randomSession1.getWeekday();
+			
+			possibleSlotsSchedule = createListOfPossibleSlotsMutation(startTime, weekday);
+			
+			randomInt2 = randomGenerator.nextInt(possibleSlotsSchedule.size() - 1);	
+			randomSession2 = database.getSessionList().get(possibleSlotsSchedule.get(randomInt2));
+			randomSessionId2 = randomSession2.getId();
+				
+			slot1 = sessionMap.get(randomSessionId1);
+			slot2 = sessionMap.get(randomSessionId2);
+				
+			sessionMap.put(randomSessionId1, slot2);
+			sessionMap.put(randomSessionId2, slot1);
+			
+			schedule.setSessionMap(sessionMap);	
+			
+			newPopulation.add(schedule); // Mutated Schedule
 					
 		}
+	}
+	
+	private List<Integer> createListOfPossibleSlotsMutation(int startTime, int weekday) {
+		
+		int firstSlot =  roomCount*4*(weekday-1) + startTime;
+		int lastSlot = firstSlot + roomCount*4;
+		List<Integer> possibleSlotsSchedule = new ArrayList<Integer>();
+		
+		for (int slot = firstSlot; slot < lastSlot; slot =+ 4) {
+					
+			possibleSlotsSchedule.add(slot);
+		}
+		
+		return possibleSlotsSchedule;
 	}
 }

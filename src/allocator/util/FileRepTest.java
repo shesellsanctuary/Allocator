@@ -12,16 +12,16 @@ import org.junit.Test;
  * @author felipebertoldo
  *
  */
-public class XMLFileTest {
+public class FileRepTest {
 
-	XMLFile tester;
+	FileRep tester;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		
-		tester = new XMLFile("./src/allocator/data/inputTest.xml");
+		tester = new FileRep("./src/allocator/data/inputTest.xml");
 	}
 
 	@Test

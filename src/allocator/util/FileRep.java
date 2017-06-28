@@ -23,7 +23,7 @@ import allocator.domain.*;
  * @author felipebertoldo, emilycalvet, marcellotomazi
  *
  */
-public class XMLFile {
+public class FileRep {
 
 	private String pathName;
 	private Database database;
@@ -34,7 +34,7 @@ public class XMLFile {
 	 * Class constructor specifying the file path
 	 * @param filePath  string containing the path of the file
 	 */
-	public XMLFile(String pathName) {
+	public FileRep(String pathName) {
 		
 		this.pathName = pathName;
 		this.database = new Database();
@@ -50,26 +50,38 @@ public class XMLFile {
 	
 	
 	/**
-	 * Parses the XML File and put its information on the Database.
+	 * Discover the file extension, then parses the file and put its information on the Database.
 	 */
    public void read() {
 	   
-	   try {
-		   	
-			File newXML = new File(pathName);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(newXML);
+	   int extensionIndex = pathName.lastIndexOf('.');
+	   String extension = pathName.substring(extensionIndex + 1);
+	   
+	   if (extension == "xml") {
+		   
+		   try {
+			   	
+				File newXML = new File(pathName);
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+				Document doc = docBuilder.parse(newXML);
+				
+				readCoursesStructure(doc);
+				readFeaturesStructure(doc);
+				readBuildingsStructure(doc);
+			}
 			
-			readCoursesStructure(doc);
-			readFeaturesStructure(doc);
-			readBuildingsStructure(doc);
-		}
-		
-		catch(Exception e) {
+			catch(Exception e) {
 			
-			System.out.println(e);
-		}	
+				System.out.println(e);
+			}	
+	   }
+	   else {
+		   
+		   System.out.println("This file is not supported!");
+		   // TODO: TOCA EXCEPTION!
+	   }
+
    }
    
    /**

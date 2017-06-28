@@ -12,10 +12,10 @@ import java.io.File;
 public interface INFOperationService {
 	
 	/**
-	 * Imports a XML file, parse its data and add them to the Database.
-	 * @param inputFile the XML file
+	 * Imports a file, parse its data and add them to the Database.
+	 * @param inputFile the file
 	 */
-	public void readXML(String pathname);
+	public void readFile(String pathname);
 
 	/**
 	 * With the information found on the input file, finds a schedule for the courses and rooms.
@@ -23,9 +23,9 @@ public interface INFOperationService {
 	public void roomAlloc();
 
 	/**
-	 * Exports the allocation results to an XML file.
-	 * @return a XML file containing the allocation results.
+	 * Exports the allocation results to an file, with the same type of the input file.
+	 * @return a file containing the allocation results.
 	 */
-	public File exportXML();
+	public File exportFile();
 	
 }

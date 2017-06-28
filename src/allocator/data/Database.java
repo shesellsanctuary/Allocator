@@ -92,6 +92,8 @@ public class Database {
 		}
 	}
 	
+	
+	
 	/**
 	 * Gets the list of professors stored in the database.
 	 * @return  a list containing the professors.
@@ -158,12 +160,39 @@ public class Database {
 	}
 	
 	/**
-	 * Gets the list of sessions that belong to a specific course.
+	 * Gets the list of sessions that belong to a specific group.
 	 * @return  a list  containing all those sessions.
 	 */
 	public List<Session> getSessionsGroup(Group group) {
 		
 		return group.getSessionsList();
+	}
+	
+	/**
+	 * Gets the list of groups that belong to a specific course.
+	 * @return  a list  containing all those groups.
+	 */
+	public List<Group> getGroupsByCourse(Course course) {
+		
+		return course.getGroupList();
+	}
+	
+	/**
+	 * Gets the list of sessions that belong to a specific group.
+	 * @return  a list  containing all those sessions.
+	 */
+	public List<Session> getGroupsByCourse(Group group) {
+		
+		return group.getSessionsList();
+	}
+	
+	/**
+	 * Gets the list of rooms that belong to a specific building.
+	 * @return  a list  containing all those rooms.
+	 */
+	public List<Room> getGroupsByCourse(Building building) {
+		
+		return building.getRoomList();
 	}
 	
 	

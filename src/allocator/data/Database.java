@@ -149,17 +149,6 @@ public class Database {
 	}
 
 	/**
-	 * Gets the list of groups that belong to a specific course.
-	 * @return  a list containing all those groups.
-	 */
-	public List<Group> getGroupsCourse(Course course) {
-		
-		//TODO: how to get all the groups of a course if group hasn't a Course attribute?
-		//		we need to check that! @see Groups.java
-		return null;
-	}
-	
-	/**
 	 * Gets the list of sessions that belong to a specific group.
 	 * @return  a list  containing all those sessions.
 	 */
@@ -181,7 +170,7 @@ public class Database {
 	 * Gets the list of sessions that belong to a specific group.
 	 * @return  a list  containing all those sessions.
 	 */
-	public List<Session> getGroupsByCourse(Group group) {
+	public List<Session> getSessionsByGroup(Group group) {
 		
 		return group.getSessionsList();
 	}
@@ -190,7 +179,7 @@ public class Database {
 	 * Gets the list of rooms that belong to a specific building.
 	 * @return  a list  containing all those rooms.
 	 */
-	public List<Room> getGroupsByCourse(Building building) {
+	public List<Room> getRoomsByBuilding(Building building) {
 		
 		return building.getRoomList();
 	}

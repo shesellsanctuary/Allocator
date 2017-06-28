@@ -10,7 +10,6 @@ import java.util.Random;
 
 import allocator.data.Database;
 import allocator.domain.Session;
-import allocator.util.vectorSort;
 
 /**
  * @author felipebertoldo, emilycalvet, marcellotomazi
@@ -58,7 +57,7 @@ public class Alloc {
 		int found = checkValidSolution();
 		if(found != -1)
 		{
-			//TODO ACHHHHHHOU		
+			// One of the schedules in the current population has an fitnessValue equal to 1. We found a solution!	
 			solutionIndex = found;
 			return;
 		}
@@ -69,10 +68,11 @@ public class Alloc {
 			crossover();
 			mutation();
 			currentPopulation = newPopulation;
+			populationFitnessCalc();
 			found = checkValidSolution();
 			if(found != -1)
 			{
-				//TODO ACHHHHHHOU		
+				// One of the schedules in the current population has an fitnessValue equal to 1. We found a solution!		
 				solutionIndex = found;
 				return;
 			}	
@@ -103,6 +103,8 @@ public class Alloc {
 	 * 
 	 */
 	private void populationFitnessCalc() {
+		currentPopulationFitness = new ArrayList<Float>();
+		
 		for(int i = 0; i < populationSize; i++)
 		{
 			Schedule sched = currentPopulation.get(i);
@@ -130,20 +132,19 @@ public class Alloc {
 
 	/**
 	 * TODO
-	 * Insert solutions with fitness over 0.5 in the new population to be generated
+	 * Insert top10 solutions in the new population to be generated
 	 * 
 	 */
 	private void transferTenBestSchedulesToNewPopulation(){
 	
-		vectorSort preSorted = new vectorSort(currentPopulationFitness);
-		
-		List<Integer> sorted = preSorted.sort();
-		
+		int index = -1;
+			
 		for(int i = 0; i < 10; i++)
 		{
-			newPopulation.add(currentPopulation.get(sorted.get(i))); //TODO LINDO! <3 FIXME: NAO DÁ CERTOOOOOOOOOOOOO!
+			
+			index = findMaxValueList();
+			newPopulation.add(currentPopulation.get(index));
 		}
-	
 	}
 	
 	
@@ -250,5 +251,24 @@ public class Alloc {
 		}
 		
 		return possibleSlotsSchedule;
+	}
+	
+	private int findMaxValueList() {
+		int index = -1;
+		float largest = -1;
+		float invalid = -1;
+		
+		for (int i = 0; i < currentPopulationFitness.size(); i++)
+		{
+		    if ( currentPopulationFitness.get(i) > largest )
+		    {
+		        largest = currentPopulationFitness.get(i);
+		        index = i;
+		    }
+		}
+		
+		currentPopulationFitness.add(index, invalid);
+		
+		return index;	
 	}
 }

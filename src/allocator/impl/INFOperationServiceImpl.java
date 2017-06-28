@@ -45,12 +45,27 @@ public class INFOperationServiceImpl implements INFOperationService {
 	@Override
 	public void roomAlloc() {
 		
+		int solutionFound;
+		
 		if (database != null) {
 			Alloc geneticAllocator = new Alloc();
 			geneticAllocator.init(database);
+			
+			solutionFound = geneticAllocator.getSolutionIndex();
+			
+			if (solutionFound != -1) {
+				
+				System.out.println("Iuhuul! A perfect solution was found! Sounds like everything will be normal this semester.");
+			}
+			else {
+				
+				System.out.println("Ouch! Some classes will not have rooms this semester. Its time to give teachers a vacation...");
+			}
+			
 		}
 		else {
-			// TODO
+			// roomAlloc was called before readFile, or the database was not initialized successfully
+			System.out.println("Oops! There is nothing in our database! We need an input file...");
 		}
 		
 	}

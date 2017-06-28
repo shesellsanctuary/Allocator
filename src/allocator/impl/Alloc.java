@@ -5,8 +5,10 @@ package allocator.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import allocator.data.Database;
+import allocator.domain.Session;
 import allocator.util.vectorSort;
 
 /**
@@ -141,26 +143,78 @@ public class Alloc {
 	
 	}
 	
+	
+	/*
+	 * Takes two schedules from new population, creates a Child from the Father(first one) and iterates on the Father's sessionMap's size
+	 * randomly inserting the Mother's(second) sessionMap's values on the Child's.
+	 * The Child is inserted in the new population.
+	 */
 	private void crossover()
 	{
-		vectorSort preSorted = new vectorSort(currentPopulationFitness);
+		vectorSort preSorted = new vectorSort(currentPopulationFitness);//TODO deixei isso aqui, mas acho que da pra tirar
 		List<Integer> sorted = preSorted.sort();
+		
+		int slot = -1, randomInt = -1;
+		Schedule scheduleFather, scheduleMother, scheduleChild;
+		Session randomSession;
+		String randomSessionId;
+		Random randomGenerator = new Random();
 		
 		for(int i = 0; i < populationSize; i += 2)
 		{
-			//TODO cruzamento
-			newPopulation.add(null); //FILHO
+			
+			scheduleFather = currentPopulation.get(i);
+			scheduleMother = currentPopulation.get(i+1);
+			scheduleChild = scheduleFather;
+			
+			for(int j = 0; j < scheduleFather.sessionMap.size(); j++)
+			{
+				
+				randomInt = randomGenerator.nextInt(scheduleMother.sessionList.size() - 1);
+				randomSession = scheduleMother.sessionList.get(randomInt);
+				randomSessionId = randomSession.getId();
+				
+				slot = scheduleMother.sessionMap.get(randomSession);
+				
+				scheduleChild.sessionMap.put(randomSessionId, slot);
+
+			}
+			
+			newPopulation.add(scheduleChild); //FILHO
 			
 		}
-	 
 	}
 
-	
+	/*
+	 * Takes two random indexes out of sessionList size of the schedule and swaps their values of the sessionMap
+	 */
 	private void mutation()
 	{
-		for(int i = 0; i < 40; i++)
+		int slot1 = -1, slot2 = -1, randomInt1 = -1, randomInt2 = -1;
+		Session randomSession1, randomSession2;
+		String randomSessionId1, randomSessionId2;
+		Random randomGenerator = new Random();
+		Schedule schedule;
+		
+		for (int i = 0; i < 40; i++)
 		{
-			
+			 schedule = currentPopulation.get(i);
+					
+					
+				randomInt1 = randomGenerator.nextInt(schedule.sessionList.size() - 1);
+				randomSession1 = schedule.sessionList.get(randomInt1);
+				randomSessionId1 = randomSession1.getId();
+					
+				randomInt2 = randomGenerator.nextInt(schedule.sessionList.size() - 1);	
+				randomSession2 = schedule.sessionList.get(randomInt2);
+				randomSessionId2 = randomSession2.getId();
+					
+				slot1 = schedule.sessionMap.get(randomSession1);
+				slot2 = schedule.sessionMap.get(randomSession2);
+					
+				schedule.sessionMap.put(randomSessionId1, slot2);
+				schedule.sessionMap.put(randomSessionId2, slot1);
+					
 		}
 	}
 }

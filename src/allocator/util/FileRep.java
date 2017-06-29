@@ -4,20 +4,32 @@
 package allocator.util;
 
 import java.io.File;
+
+import allocator.INFOperationService;
+import allocator.data.Database;
+import allocator.util.FileRep;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.Node;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import allocator.data.Database;
-import allocator.domain.*;
+import allocator.domain;
+import allocator.impl;
 
 
 /**
@@ -28,7 +40,6 @@ public class FileRep {
 
 	private String pathName;
 	private Database database;
-	private String extensionType;
 	private static final int EMPTY_NUMBER = -1;
 	private static final String EMPTY_STR = "";
 	
@@ -40,7 +51,6 @@ public class FileRep {
 		
 		this.pathName = pathName;
 		this.database = new Database();
-		this.extensionType = checkExtension();
 	}
 	
 	/**
@@ -55,17 +65,20 @@ public class FileRep {
 	/**
 	 * Discover the file extension, then parses the file and put its information on the Database.
 	 */
-	public void read() {
-	      
-		if (extensionType.equals("xml")) {
+   public void read() {
+	   
+	   int extensionIndex = pathName.lastIndexOf('.');
+	   String extension = pathName.substring(extensionIndex + 1);
+	   
+	   if (extension == "xml") {
 		   
 		   try {
-			    	
-			    File newXML = new File(pathName);
+			   	
+				File newXML = new File(pathName);
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 				Document doc = docBuilder.parse(newXML);
-
+				
 				readCoursesStructure(doc);
 				readFeaturesStructure(doc);
 				readBuildingsStructure(doc);
@@ -81,16 +94,7 @@ public class FileRep {
 		   System.out.println("This file is not supported!");
 		   // TODO: TOCA EXCEPTION!
 	   }
-   }
-   
-   public void write() {
-	
-   }
-   
-   private String checkExtension() {
-	   int extensionIndex = pathName.lastIndexOf('.');
-	   String extension = pathName.substring(extensionIndex + 1);
-	   return extension;
+
    }
    
    /**
@@ -218,6 +222,7 @@ public class FileRep {
    	 * @param roomList
    	 */
   	private void readRooms(NodeList roomList, Building building) {
+  		
   		for (int room  = 0; room < roomList.getLength(); room++) {
 
 			org.w3c.dom.Node roomNode = roomList.item(room);
@@ -331,6 +336,16 @@ public class FileRep {
   		List<Integer> feature_ids = new ArrayList<Integer>();
   		String featIdStr = roomElement.getAttribute("feature_ids");
 
+  		if(featIdStr != EMPTY_STR) {
+  			
+  			String feat_ids[] = featIdStr.split(Pattern.quote(","));
+	  		for (int feature = 0; feature < feat_ids.length; feature++) 
+	  		{
+	  			if(feat_ids[feature] != null) {
+	  				feature_ids.add(Integer.parseInt(feat_ids[feature]));
+	  			}
+	  		}
+  		}
   		Room newRoom = new Room(roomElement.getAttribute("id"), feature_ids, numberPlaces, availableRoom, building, roomElement.getAttribute("note"));
   		building.addRoom(newRoom);
   		database.insert(newRoom);
@@ -391,5 +406,122 @@ public class FileRep {
 	
   		return booleanValue;
   	}
+
+
+	public void createFile() 
+	{
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			// allocation elements
+			Document doc = docBuilder.newDocument();
+			Element allocationElement = doc.createElement("Allocation");
+			doc.appendChild(allocationElement);
+			
+			// courses elements
+			Element coursesElement = doc.createElement("Courses");
+			doc.appendChild(coursesElement);
+			
+			createCourses(doc);
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult file = new StreamResult(new File("C:\\Allocations.xml"));
+	
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+	
+			transformer.transform(source, file);
+	
+			System.out.println("File saved!");
+			
+		} catch (Exception e) {
+			
+			System.out.println(e);
+		}
+	}
+	
+	private void createCourses(Document doc)
+	{
+		for(int i = 0; i < courses; i++) //TODO
+		{
+			// course elements
+			Element courseElement = doc.createElement("Course");
+			doc.appendChild(courseElement);
+			
+			// set name attribute to course element
+			Attr courseName = doc.createAttribute("name");
+			courseAttributeName.setValue(""); //TODO
+			courseElement.setAttributeNode(courseName);
+			
+			// set id attribute to course element
+			Attr courseId = doc.createAttribute("id");
+			courseAttributeId.setValue(""); //TODO
+			courseElement.setAttributeNode(courseId);
+			
+			createGroups(doc);
+		}
+	}
+	
+	private void createGroups(Document doc)
+	{
+		for(int i = 0; i < groups; i++) //TODO
+		{
+			// group elements
+			Element groupElement = doc.createElement("group");
+			groupElement.appendChild(group);
+			
+			// set attribute to group element TODO
+			Attr groupNOS = doc.createAttribute("number_of_students");
+			groupElementNOS.setValue("1");
+			groupElement.setAttributeNode(groupNOS);
+			
+			// set attribute to group element
+			Attr groupTeacher = doc.createAttribute("teacher");
+			groupElementTeacher.setValue("1");
+			groupElement.setAttributeNode(groupTeacher);
+			
+			// set attribute to group element
+			Attr groupId = doc.createAttribute("id");
+			groupElementId.setValue("1");
+			groupElement.setAttributeNode(groupId);
+			
+			createSessions(doc); //TODO
+		}
+	}
+	
+	private void createSessions(Document doc)
+	{
+		for(int i = 0; i < sessions ; i++) // TODO
+		{
+			// session elements
+			Element sessionElement = doc.createElement("session");
+			sessionElement.appendChild(session);
+			
+			// set attribute to staff element TODO
+			Attr sessionDuration = doc.createAttribute("duration");
+			sessionDuration.setValue("1");
+			sessionElement.setAttributeNode(sessionDuration);
+			
+			Attr sessionRBId = doc.createAttribute("requires_building_id");
+			sessionRBId.setValue("1");
+			sessionElement.setAttributeNode(sessionRBId);
+			
+			Attr sessionRRId = doc.createAttribute("requires_room_id");
+			sessionRRId.setValue("1");
+			sessionElement.setAttributeNode(sessionRRId);
+			
+			Attr sessionWeekday = doc.createAttribute("weekday");
+			sessionWeekday.setValue("1");
+			sessionElement.setAttributeNode(sessionWeekday);
+			
+			Attr sessionStartTime = doc.createAttribute("start_time");
+			sessionStartTime.setValue("1");
+			sessionElement.setAttributeNode(sessionStartTime);
+		}
+	}
 }
 

@@ -391,5 +391,121 @@ public class FileRep {
 	
   		return booleanValue;
   	}
+  	
+  		public void createFile() 
+	{
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			// allocation elements
+			Document doc = docBuilder.newDocument();
+			Element allocationElement = doc.createElement("allocation");
+			doc.appendChild(allocationElement);
+			
+			// courses elements
+			Element coursesElement = doc.createElement("courses");
+			doc.appendChild(coursesElement);
+			
+			createCourses(doc);
+
+			// write the content into xml file
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult file = new StreamResult(new File("C:\\Allocations.xml"));
+	
+			// Output to console for testing
+			// StreamResult result = new StreamResult(System.out);
+	
+			transformer.transform(source, file);
+	
+			System.out.println("File saved!");
+			
+		} catch (Exception e) {
+			
+			System.out.println(e);
+		}
+	}
+	
+	private void createCourses(Document doc)
+	{
+		for(int i = 0; i < courses; i++) //TODO
+		{
+			// course elements
+			Element courseElement = doc.createElement("course");
+			doc.appendChild(courseElement);
+			
+			// set name attribute to course element
+			Attr courseName = doc.createAttribute("name");
+			courseAttributeName.setValue(""); //TODO
+			courseElement.setAttributeNode(courseName);
+			
+			// set id attribute to course element
+			Attr courseId = doc.createAttribute("id");
+			courseAttributeId.setValue(""); //TODO
+			courseElement.setAttributeNode(courseId);
+			
+			createGroups(doc);
+		}
+	}
+	
+	private void createGroups(Document doc)
+	{
+		for(int i = 0; i < groups; i++) //TODO
+		{
+			// group elements
+			Element groupElement = doc.createElement("group");
+			groupElement.appendChild(group);
+			
+			// set attribute to group element TODO
+			Attr groupNOS = doc.createAttribute("number_of_students");
+			groupElementNOS.setValue("1");
+			groupElement.setAttributeNode(groupNOS);
+			
+			// set attribute to group element
+			Attr groupTeacher = doc.createAttribute("teacher");
+			groupElementTeacher.setValue("1");
+			groupElement.setAttributeNode(groupTeacher);
+			
+			// set attribute to group element
+			Attr groupId = doc.createAttribute("id");
+			groupElementId.setValue("1");
+			groupElement.setAttributeNode(groupId);
+			
+			createSessions(doc); //TODO
+		}
+	}
+	
+	private void createSessions(Document doc)
+	{
+		for(int i = 0; i < sessions ; i++) // TODO
+		{
+			// session elements
+			Element sessionElement = doc.createElement("session");
+			sessionElement.appendChild(session);
+			
+			// set attribute to staff element TODO
+			Attr sessionDuration = doc.createAttribute("duration");
+			sessionDuration.setValue("1");
+			sessionElement.setAttributeNode(sessionDuration);
+			
+			Attr sessionRBId = doc.createAttribute("requires_building_id");
+			sessionRBId.setValue("1");
+			sessionElement.setAttributeNode(sessionRBId);
+			
+			Attr sessionRRId = doc.createAttribute("requires_room_id");
+			sessionRRId.setValue("1");
+			sessionElement.setAttributeNode(sessionRRId);
+			
+			Attr sessionWeekday = doc.createAttribute("weekday");
+			sessionWeekday.setValue("1");
+			sessionElement.setAttributeNode(sessionWeekday);
+			
+			Attr sessionStartTime = doc.createAttribute("start_time");
+			sessionStartTime.setValue("1");
+			sessionElement.setAttributeNode(sessionStartTime);
+		}
+	}
 }
 

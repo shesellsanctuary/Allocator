@@ -4,6 +4,7 @@
 package allocator.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -34,9 +35,10 @@ public class Schedule {
 	 */
 	public Schedule(Database db) {
 	
-		scheduleAllocation = new ArrayList<Integer>();
-		sessionMap = new HashMap<String,Integer>();
 		roomCount = db.getRoomList().size();
+		scheduleAllocation = new ArrayList<Integer>();
+		initializeScheduleAllocation();
+		sessionMap = new HashMap<String,Integer>();
 		sessionCount = db.getSessionList().size();
 		sessionList = db.getSessionList();
 		roomList = db.getRoomList();
@@ -205,10 +207,10 @@ public class Schedule {
 	
 	public int discoverStartTime(String startTime) {
 		
-		if (startTime == "08:30") return 0;
-		else if (startTime == "10:30") return 1;
-		else if (startTime == "13:30") return 2;
-		else if (startTime == "15:30") return 3;
+		if (startTime.equals("08:30")) return 0;
+		else if (startTime.equals("10:30")) return 1;
+		else if (startTime.equals("13:30")) return 2;
+		else if (startTime.equals("15:30")) return 3;
 		else return -1;
 	}
 	
@@ -249,6 +251,13 @@ public class Schedule {
 		
 		return currentRoom;		
 		
+	}
+	
+	private void initializeScheduleAllocation() {
+		
+		for (int i = 0; i < 560; i++) {
+			scheduleAllocation.add(0);
+		}
 	}
 	
 }

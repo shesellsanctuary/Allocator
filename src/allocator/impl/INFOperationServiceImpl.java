@@ -50,7 +50,7 @@ public class INFOperationServiceImpl implements INFOperationService {
 		if (database != null) {
 			Alloc geneticAllocator = new Alloc();
 			geneticAllocator.init(database);
-			
+
 			solutionFound = geneticAllocator.getSolutionIndex();
 			
 			if (solutionFound != -1) {

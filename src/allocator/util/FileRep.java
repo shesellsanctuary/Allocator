@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.Node;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -27,6 +28,7 @@ public class FileRep {
 
 	private String pathName;
 	private Database database;
+	private String extensionType;
 	private static final int EMPTY_NUMBER = -1;
 	private static final String EMPTY_STR = "";
 	
@@ -38,6 +40,7 @@ public class FileRep {
 		
 		this.pathName = pathName;
 		this.database = new Database();
+		this.extensionType = checkExtension();
 	}
 	
 	/**
@@ -52,20 +55,17 @@ public class FileRep {
 	/**
 	 * Discover the file extension, then parses the file and put its information on the Database.
 	 */
-   public void read() {
-	   
-	   int extensionIndex = pathName.lastIndexOf('.');
-	   String extension = pathName.substring(extensionIndex + 1);
-	   
-	   if (extension == "xml") {
+	public void read() {
+	      
+		if (extensionType.equals("xml")) {
 		   
 		   try {
-			   	
-				File newXML = new File(pathName);
+			    	
+			    File newXML = new File(pathName);
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 				Document doc = docBuilder.parse(newXML);
-				
+
 				readCoursesStructure(doc);
 				readFeaturesStructure(doc);
 				readBuildingsStructure(doc);
@@ -81,7 +81,16 @@ public class FileRep {
 		   System.out.println("This file is not supported!");
 		   // TODO: TOCA EXCEPTION!
 	   }
-
+   }
+   
+   public void write() {
+	
+   }
+   
+   private String checkExtension() {
+	   int extensionIndex = pathName.lastIndexOf('.');
+	   String extension = pathName.substring(extensionIndex + 1);
+	   return extension;
    }
    
    /**
@@ -209,7 +218,6 @@ public class FileRep {
    	 * @param roomList
    	 */
   	private void readRooms(NodeList roomList, Building building) {
-  		
   		for (int room  = 0; room < roomList.getLength(); room++) {
 
 			org.w3c.dom.Node roomNode = roomList.item(room);
@@ -323,16 +331,6 @@ public class FileRep {
   		List<Integer> feature_ids = new ArrayList<Integer>();
   		String featIdStr = roomElement.getAttribute("feature_ids");
 
-  		if(featIdStr != EMPTY_STR) {
-  			
-  			String feat_ids[] = featIdStr.split(Pattern.quote(","));
-	  		for (int feature = 0; feature < feat_ids.length; feature++) 
-	  		{
-	  			if(feat_ids[feature] != null) {
-	  				feature_ids.add(Integer.parseInt(feat_ids[feature]));
-	  			}
-	  		}
-  		}
   		Room newRoom = new Room(roomElement.getAttribute("id"), feature_ids, numberPlaces, availableRoom, building, roomElement.getAttribute("note"));
   		building.addRoom(newRoom);
   		database.insert(newRoom);

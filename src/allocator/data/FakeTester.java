@@ -3,6 +3,8 @@
  */
 package allocator.data;
 
+import allocator.impl.INFOperationServiceImpl;
+
 /**
  * @author felipebertoldo
  *
@@ -20,7 +22,10 @@ public class FakeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		INFOperationServiceImpl teste = new INFOperationServiceImpl();
+		teste.readFile("C:/Users/Marcello/Desktop/TCP/Allocator/src/allocator/data/short.xml");
+	    teste.roomAlloc();
+	    System.out.println("SUUUUCESSO");
 
 	}
 

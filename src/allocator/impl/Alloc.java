@@ -50,6 +50,7 @@ public class Alloc {
 	 */
 	public void init(Database database)
 	{
+		System.out.println("Olha eu aqui");
 		this.database= database;
 		roomCount = database.getRoomList().size();
 		createNewPopulation();

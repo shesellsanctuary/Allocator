@@ -4,10 +4,8 @@
 package allocator.data;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import allocator.domain.*;
@@ -28,8 +26,6 @@ public class DatabaseTest {
 	private List<Integer> featuresList;
 	private Room roomObj;
 	private Session sessionObj;
-	
-	
 	
 
 	/**
